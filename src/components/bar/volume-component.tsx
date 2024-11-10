@@ -43,7 +43,9 @@ const VolumeComponent: React.FC<VolumeComponentProps> = ({ onClick }) => {
         onClick={(e) => {
           e.stopPropagation();
           toggleMute();
-          onClick && onClick(e);
+          if (onClick) {
+            onClick(e);
+          }
         }}
       >
         {getVolumeIcon()}
