@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 
 import Topbar from "@/features/main/topbar";
 import ModalProvider from "@/components/modal/modal-provider";
-
 import { Bar } from "@/features/main/bar";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
@@ -23,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body>
         <ThemeProvider
           attribute="class"
