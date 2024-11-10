@@ -111,7 +111,7 @@ export default function WatchPage() {
               <div className="whitespace-pre-line p-4 text-2xl truncate leading-loose text-white">
                 Fancy 이건 참 화려해
                 <br />
-                It's glowing and it's flashy (yeah)
+                It&apos;s glowing and it&apos;s flashy (yeah)
                 <br />
                 알아, 적당함이 뭔지 keep it classy
                 <br />
@@ -121,9 +121,9 @@ export default function WatchPage() {
                 <br />
                 Under pressure, body sweating, can you focus? (Hoo)
                 <br />
-                I deliver, I can promise, I'm the coldest (cold)
+                I deliver, I can promise, I&apos;m the coldest (cold)
                 <br />
-                외면해도 소용없지 don't you blow it?
+                외면해도 소용없지 don&apos;t you blow it?
               </div>
             )}
           </div>
