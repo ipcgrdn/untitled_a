@@ -56,7 +56,7 @@ const VolumeComponent: React.FC<VolumeComponentProps> = ({ onClick }) => {
         onValueChange={handleVolumeChange}
         max={100}
         step={1}
-        className="w-1/6"
+        className="w-1/6 py-2"
         onClick={onClick}
       />
     </div>
