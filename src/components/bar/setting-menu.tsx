@@ -6,10 +6,11 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/provider/authProvider";
 import { useCallback } from "react";
+import { cn } from "@/lib/utils";
 
 export function SettingMenu() {
   const { setTheme, theme, systemTheme } = useTheme();
-  const { setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const router = useRouter();
 
   const handleLogout = useCallback(async () => {
@@ -45,7 +46,12 @@ export function SettingMenu() {
     {
       title: "로그아웃",
       icon: (
-        <IconLogout className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconLogout
+          className={cn(
+            "h-full w-full text-neutral-500 dark:text-neutral-300",
+            { "opacity-50 cursor-not-allowed": !isLoggedIn }
+          )}
+        />
       ),
       onClick: handleLogout,
     },
