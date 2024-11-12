@@ -1,11 +1,14 @@
 import "./globals.css";
 import type { Metadata } from "next";
 
+import { Bar } from "@/features/main/bar";
+import { getAccessToken } from "@/lib/auth";
 import Topbar from "@/features/main/topbar";
 import ModalProvider from "@/components/modal/modal-provider";
-import { Bar } from "@/features/main/bar";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+
+import AuthProvider from "@/provider/authProvider";
 
 export const metadata: Metadata = {
   title: "Untitled",
@@ -20,6 +23,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const accessToken = getAccessToken();
+
   return (
     <html>
       <head>
@@ -32,6 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <AuthProvider accessToken={accessToken}>
           <ModalProvider />
           <Toaster />
 
@@ -49,6 +55,7 @@ export default function RootLayout({
 
             {children}
           </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

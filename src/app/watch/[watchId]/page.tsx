@@ -18,29 +18,44 @@ import { CustomSlider } from "@/components/ui/custom-slider";
 import VolumeComponent from "@/components/bar/volume-component";
 import { useState } from "react";
 import WatchNowPlaying from "@/features/watch/watch-nowPlaying";
+import { useRouter } from "next/navigation";
 
 type ViewState = "lyrics" | "nowPlaying";
 
 export default function WatchPage() {
   const [view, setView] = useState<ViewState>("nowPlaying");
+  const router = useRouter();
 
-  const toggleView = () => {
+  const toggleView = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setView((prev) => (prev === "lyrics" ? "nowPlaying" : "lyrics"));
+  };
+
+  const handleClick = () => {
+    router.back();
   };
 
   return (
     <main className="h-full w-full z-50 relative flex flex-col overflow-hidden py-8 md:px-24 px-8">
       <div className="absolute inset-0 bg-[url('/images/aespa.png')] bg-cover bg-center brightness-50"></div>
 
-      <div className="relative flex w-full items-center justify-between">
-        <button className="flex flex-1" onClick={toggleView}>
-          {view === "nowPlaying" ? (
-            <IconAlignBoxCenterMiddle className="size-8 text-white" />
-          ) : (
-            <IconVinyl className="size-8 text-white" />
-          )}
-        </button>
-        <div className="flex items-center flex-2 space-x-4">
+      <div
+        onClick={handleClick}
+        className="relative flex w-full items-center justify-between"
+      >
+        <div className="flex flex-1">
+          <button onClick={(e) => toggleView(e)}>
+            {view === "nowPlaying" ? (
+              <IconAlignBoxCenterMiddle className="size-8 text-white" />
+            ) : (
+              <IconVinyl className="size-8 text-white" />
+            )}
+          </button>
+        </div>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center flex-2 space-x-4"
+        >
           <button>
             <IconArrowsShuffle className="size-5" />
           </button>
@@ -58,9 +73,12 @@ export default function WatchPage() {
           </button>
         </div>
         <div className="flex flex-1 items-center space-x-2">
-          <VolumeComponent />
+          <VolumeComponent onClick={(e) => e.stopPropagation()} />
           <button>
-            <IconDotsVertical className="size-5" />
+            <IconDotsVertical
+              onClick={(e) => e.stopPropagation()}
+              className="size-5"
+            />
           </button>
         </div>
       </div>
