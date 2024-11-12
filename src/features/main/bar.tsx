@@ -17,7 +17,7 @@ import {
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/provider/authProvider";
 import useSigninModal from "@/hooks/modal/use-signin-modal";
 
