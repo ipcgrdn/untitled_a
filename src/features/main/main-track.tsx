@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import SquareContainer from "@/components/container/square-container";
 import { useRouter } from "next/navigation";
 
 const MainTrack = () => {
-    const router = useRouter();
+  const router = useRouter();
 
   const dummy = [
     {
