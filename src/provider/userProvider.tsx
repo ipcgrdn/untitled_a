@@ -10,7 +10,7 @@ import { useAuth } from "./authProvider";
 export interface Artist {
   uuid: string;
   name: string;
-  role: 'ROLE_USER';
+  role: string;
   email: string;
   artistImage: string;
 }
@@ -34,35 +34,22 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUser = async () => {
     try {
+      setIsLoading(true);
       const { data } = await api.get<Artist>("/artist");
-      
-      if (!data || typeof data !== 'object') {
-        throw new Error('Invalid response data');
-      }
-      
-      const requiredFields: (keyof Artist)[] = ['uuid', 'name', 'role', 'email', 'artistImage'];
-      const missingFields = requiredFields.filter(field => !(field in data));
-      
-      if (missingFields.length > 0) {
-        throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
-      }
-      
       setUser(data);
     } catch (err) {
-      if (axios.isAxiosError(err)) {
+      if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
           setIsLoggedIn(false);
           setUser(null);
-        } else {
-          setError(
-            new Error(
-              err.response?.data?.message || 
-              `Failed to fetch user data: ${err.response?.status}`
-            )
-          );
         }
+        setError(
+          new Error(
+            err.response?.data?.message || "Failed to fetch user data"
+          )
+        );
       } else {
-        setError(new Error("An unexpected error occurred while fetching user data"));
+        setError(new Error("An unexpected error occurred"));
       }
     } finally {
       setIsLoading(false);
@@ -77,7 +64,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
 
     fetchUser();
-  }, [isLoggedIn]); 
+  }, [isLoggedIn]);
 
   const logout = useCallback(async () => {
     try {
