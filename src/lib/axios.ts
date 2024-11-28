@@ -1,9 +1,37 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from "axios";
 
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || '',
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+const createAxiosInstance = (): AxiosInstance => {
+  const instance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    withCredentials: true,
+  });
+
+  instance.interceptors.request.use(
+    async (config) => {
+      try {
+        const response = await fetch('/api/token')
+        const data = await response.json()
+
+        console.log('Token:', data.token);
+        
+        if (data.token) {
+          config.headers.Authorization = `Bearer ${data.token}`;
+        }
+      } catch (error) {
+        console.error('토큰 가져오기 실패:', error);
+      }
+
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  return instance;
+};
+
+export const api = createAxiosInstance();

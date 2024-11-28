@@ -25,7 +25,7 @@ const SquareContainer = ({
 
   return (
     <div className="flex flex-col h-60 w-52 bg-transparent items-center justify-center hover:bg-[#7E47631F] dark:hover:bg-gradient-to-b dark:from-[#D8C2DC4D] dark:to-[#2D1E274D] rounded-lg pb-4 transition hover:cursor-pointer">
-      <div className="relative mt-4 flex items-center justify-center h-40 w-40 group">
+      <div className="relative mt-4 flex items-center justify-center h-32 w-32 lg:h-40 lg:w-40 group">
         <Image
           src={src}
           alt="profile"
@@ -42,13 +42,13 @@ const SquareContainer = ({
       </div>
       <div
         onClick={onClickName}
-        className="mt-2 font-bold text-lg text-black dark:text-white text-center tracking-wide hover:underline"
+        className="mt-2 font-bold text-lg text-black dark:text-white text-center tracking-wide hover:underline w-full px-8 truncate"
       >
         {name}
       </div>
       <span
         onClick={onClickDescription}
-        className="font-medium text-sm text-neutral-600 dark:text-neutral-400 text-center hover:underline"
+        className="font-medium text-sm text-neutral-600 dark:text-neutral-400 text-center hover:underline w-full px-2 truncate"
       >
         {description}
       </span>
